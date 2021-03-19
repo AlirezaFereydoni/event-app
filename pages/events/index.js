@@ -1,3 +1,6 @@
+// import EventList from "../components/event/list.jsx";
+// import { getFeaturedEvents } from "../dummyData";
+
 const EventPage = () => {
   return (
     <div>
