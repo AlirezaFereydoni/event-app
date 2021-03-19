@@ -1,4 +1,5 @@
 import Link from "next/link";
+import styles from "./itemStyle.module.css";
 
 const EventItem = ({ id, title, description, date, location, image, isFeatured }) => {
   const readableHumanDate = new Date(date).toLocaleDateString({
@@ -10,21 +11,18 @@ const EventItem = ({ id, title, description, date, location, image, isFeatured }
   const formattedAddress = location?.replace(", ", "\n");
 
   return (
-    <li>
+    <li className={styles.item}>
       <img src={`/${image}`} alt={title} />
-      <div>
+      <div className={styles.content}>
         <h2>{title}</h2>
       </div>
-      <div>
-        <p>{description}</p>
-      </div>
-      <div>
+      <div className={styles.date}>
         <time>{readableHumanDate}</time>
       </div>
       <div>
-        <address>{formattedAddress}</address>
+        <address className={styles.address}>{formattedAddress}</address>
       </div>
-      <div>
+      <div className={styles.actions}>
         <Link href={`/events/${id}/`}>SpecialEvent</Link>
       </div>
     </li>
