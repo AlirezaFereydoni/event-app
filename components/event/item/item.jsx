@@ -1,40 +1,46 @@
-import styles from "./itemStyle.module.css";
 import Button from "../../button/button";
 import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
-import ArrowIcon from "../../icons/arrow-right-icon";
+import ArrowRightIcon from "../../icons/arrow-right-icon";
+import classes from "./itemStyle.module.css";
 
-const EventItem = ({ id, title, description, date, location, image, isFeatured }) => {
-  const readableHumanDate = new Date(date).toLocaleDateString({
+function EventItem(props) {
+  const { title, image, date, location, id } = props;
+
+  const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
   });
-
-  const formattedAddress = location?.replace(", ", "\n");
+  const formattedAddress = location.replace(", ", "\n");
+  const exploreLink = `/events/${id}`;
 
   return (
-    <li className={styles.item}>
-      <img src={`/${image}`} alt={title} />
-      <div className={styles.content}>
-        <h2>{title}</h2>
-      </div>
-      <div className={styles.date}>
-        <DateIcon />
-        <time>{readableHumanDate}</time>
-      </div>
-      <div>
-        <AddressIcon />
-        <address className={styles.address}>{formattedAddress}</address>
-      </div>
-      <div className={styles.actions}>
-        <Button link={`/events/${id}/`}>
-          <ArrowIcon />
-          Special Event
-        </Button>
+    <li className={classes.item}>
+      <img src={"/" + image} alt={title} />
+      <div className={classes.content}>
+        <div className={classes.summary}>
+          <h2>{title}</h2>
+          <div className={classes.date}>
+            <DateIcon />
+            <time>{humanReadableDate}</time>
+          </div>
+          <div className={classes.address}>
+            <AddressIcon />
+            <address>{formattedAddress}</address>
+          </div>
+        </div>
+        <div className={classes.actions}>
+          <Button link={exploreLink}>
+            <span>Explore Event</span>
+            <span className={classes.icon}>
+              <ArrowRightIcon />
+            </span>
+          </Button>
+        </div>
       </div>
     </li>
   );
-};
+}
 
 export default EventItem;
