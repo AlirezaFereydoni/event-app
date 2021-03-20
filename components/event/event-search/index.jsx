@@ -1,9 +1,10 @@
 import { useRef } from "react";
-
+import { Router, useRouter } from "next/router";
 import Button from "../../button/button";
 import classes from "./event-search.module.css";
 
 function EventsSearch(props) {
+  const router = useRouter();
   const yearInputRef = useRef();
   const monthInputRef = useRef();
 
@@ -13,7 +14,8 @@ function EventsSearch(props) {
     const selectedYear = yearInputRef.current.value;
     const selectedMonth = monthInputRef.current.value;
 
-    props.onSearch(selectedYear, selectedMonth);
+    // props.onSearch(selectedYear, selectedMonth);
+    router.replace(`/events/${selectedYear}/${selectedMonth}`);
   }
 
   return (
