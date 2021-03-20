@@ -1,10 +1,14 @@
-// import EventList from "../components/event/list.jsx";
-// import { getFeaturedEvents } from "../dummyData";
+import EventList from "../../components/event/list/list.jsx";
+import { getAllEvents } from "../dummyData";
+import SearchBox from "../../components/event/event-search";
 
 const EventPage = () => {
+  const eventItems = getAllEvents();
+
   return (
     <div>
-      <h1>Event Page</h1>
+      <SearchBox />
+      <EventList events={eventItems} />
     </div>
   );
 };
