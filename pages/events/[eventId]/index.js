@@ -1,14 +1,9 @@
-import { useRouter } from "next/router";
-import { getEventById } from "../../dummyData";
+import { getEventById, getFeaturedEvents } from "../../../controller";
 import EventContent from "../../../components/event/event-detail/event-content";
 import EventLogistics from "../../../components/event/event-detail/event-logistics";
 import EventSummary from "../../../components/event/event-detail/event-summary";
 
-const SpecialEvent = () => {
-  const router = useRouter();
-  const eventId = router.query.eventId;
-  const detailEvent = getEventById(eventId);
-
+const SpecialEvent = ({ detailEvent }) => {
   return detailEvent !== undefined ? (
     <div>
       <EventSummary title={detailEvent.title} />
@@ -27,5 +22,25 @@ const SpecialEvent = () => {
     <p>Event Not Found</p>
   );
 };
+
+export async function getStaticProps(context) {
+  const EVENT_ID = context.params.eventId;
+  const selectedEvent = await getEventById(EVENT_ID);
+  return {
+    props: {
+      detailEvent: selectedEvent,
+    },
+    revalidate: 20,
+  };
+}
+
+export async function getStaticPaths() {
+  const allEvent = await getFeaturedEvents();
+
+  return {
+    paths: [...allEvent.map(event => event.id)],
+    fallback: "blocking",
+  };
+}
 
 export default SpecialEvent;
