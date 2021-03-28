@@ -6,6 +6,10 @@ import EventSummary from "../../../components/event/event-detail/event-summary";
 const SpecialEvent = ({ detailEvent }) => {
   return detailEvent !== undefined ? (
     <div>
+      <Head>
+        <title>{detailEvent.title}</title>
+        <meta name="description" content={detailEvent.description} />
+      </Head>
       <EventSummary title={detailEvent.title} />
 
       <EventLogistics

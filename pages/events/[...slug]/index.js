@@ -36,6 +36,10 @@ function FilteredEventsPage({ filteredEvents, hasError, date }) {
 
   return (
     <Fragment>
+      <Head>
+        <title>Filtering Events</title>
+        <meta name="description" content={`All Events for ${date.month}/${date.year}.`} />
+      </Head>
       <ResultsTitle date={date} />
       <EventList items={filteredEvents} />
     </Fragment>
