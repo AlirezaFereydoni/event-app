@@ -3,6 +3,7 @@ import DateIcon from "../../icons/date-icon";
 import AddressIcon from "../../icons/address-icon";
 import ArrowRightIcon from "../../icons/arrow-right-icon";
 import classes from "./itemStyle.module.css";
+import Image from "next/image";
 
 function EventItem(props) {
   const { title, image, date, location, id } = props;
@@ -13,7 +14,7 @@ function EventItem(props) {
     year: "numeric",
   });
   const formattedAddress = location.replace(", ", "\n");
-  const exploreLink = `/events/${id}`;
+  const exploreLink = `/events/${id}/`;
 
   return (
     <li className={classes.item}>
