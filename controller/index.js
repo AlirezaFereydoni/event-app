@@ -10,19 +10,20 @@ export async function getAllEvents() {
     }
     return data;
   } catch (err) {
-    return err;
+    console.log(err);
+    return [];
   }
 }
 
 export async function getFeaturedEvents() {
-  const allEvent = await getAllEvents();
-  return allEvent.filter(event => event.isFeatured);
+  const allEvents = await getAllEvents();
+  return allEvents.filter(event => event.isFeatured);
 }
 
 export async function getFilteredEvents(dateFilter) {
   const { year, month } = dateFilter;
-  const allEvent = await getAllEvents();
-  let filteredEvents = allEvent.filter(event => {
+  const allEvents = await getAllEvents();
+  let filteredEvents = allEvents.filter(event => {
     const eventDate = new Date(event.date);
     return eventDate.getFullYear() === year && eventDate.getMonth() === month - 1;
   });
@@ -31,6 +32,6 @@ export async function getFilteredEvents(dateFilter) {
 }
 
 export async function getEventById(id) {
-  const allEvent = await getAllEvents();
-  return allEvent.find(event => event.id === id);
+  const allEvents = await getAllEvents();
+  return allEvents.find(event => event.id === id);
 }
