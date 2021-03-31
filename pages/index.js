@@ -1,6 +1,7 @@
 import EventList from "../components/event/list/list.jsx";
 import { getFeaturedEvents } from "../controller";
 import Head from "next/head";
+import NewsletterRegistration from "../components/input/newsletter-registration";
 
 const HomePage = props => {
   return (
@@ -9,6 +10,7 @@ const HomePage = props => {
         <title>Featured Events</title>
         <meta name="description" content="All Featured Events that we could join..." />
       </Head>
+      <NewsletterRegistration />
       <EventList events={props.events} />
     </div>
   );

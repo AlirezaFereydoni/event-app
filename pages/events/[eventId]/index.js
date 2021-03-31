@@ -2,6 +2,7 @@ import { getEventById, getFeaturedEvents } from "../../../controller";
 import EventContent from "../../../components/event/event-detail/event-content";
 import EventLogistics from "../../../components/event/event-detail/event-logistics";
 import EventSummary from "../../../components/event/event-detail/event-summary";
+import Comments from "../../../components/input/comments";
 
 const SpecialEvent = ({ detailEvent }) => {
   return detailEvent !== undefined ? (
@@ -21,6 +22,7 @@ const SpecialEvent = ({ detailEvent }) => {
       <EventContent>
         <p>{detailEvent.description}</p>
       </EventContent>
+      <Comments eventId={detailEvent.id} />
     </div>
   ) : (
     <p>Event Not Found</p>
