@@ -1,2 +1,4 @@
 # EventApp
-Event app with Some Event build in dummy data files and filtering with routes, I've created this project for practicing routing in nextjs
+
+Event app with Some Event build with Nextjs and Firebase for backend.
+I've Created this project for practicing Nextjs features and capabilities.
