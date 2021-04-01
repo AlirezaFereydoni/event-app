@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 const CommentHandler = async (req, res) => {
   const eventId = req.query.eventId;
   const url =
-    "mongodb+srv://Alireza:9092654a@nextjseventcluster.zzufe.mongodb.net/comments?retryWrites=true&w=majority";
+    "mongodb+srv://Alireza:9092654a@nextjseventcluster.zzufe.mongodb.net/newsletter?retryWrites=true&w=majority";
   const client = MongoClient.connect(url);
   const database = client.db();
   const collection = database.collection("comments");
@@ -27,14 +27,21 @@ const CommentHandler = async (req, res) => {
       name: name,
       eventId: eventId,
     };
-
-    const result = await collection.insertOne(newComment);
-    res.status(201).json({ message: "success", comment: newComment });
+    try {
+      await collection.insertOne(newComment);
+      res.status(201).json({ message: "success", comment: newComment });
+    } catch (err) {
+      res.status(500).json({ message: "Inserting Comment Failed!" });
+    }
   }
 
   if (req.method === "GET") {
-    const comments = collection.find().toArray();
-    res.status(200).json({ comments: comments });
+    try {
+      const comments = collection.find().toArray();
+      res.status(200).json({ comments: comments });
+    } catch (err) {
+      res.status(500).json({ message: "Couldn't get comments" });
+    }
   }
 
   client.close();
