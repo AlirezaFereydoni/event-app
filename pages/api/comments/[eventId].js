@@ -1,10 +1,12 @@
-import fs from "fs";
-import path from "path";
+import { MongoClient } from "mongodb";
 
-const CommentHandler = (req, res) => {
-  const filePath = path.join(process.cwd(), "data", "comments.json");
-  const data = JSON.parse(fs.readFileSync(filePath));
+const CommentHandler = async (req, res) => {
   const eventId = req.query.eventId;
+  const url =
+    "mongodb+srv://Alireza:9092654a@nextjseventcluster.zzufe.mongodb.net/comments?retryWrites=true&w=majority";
+  const client = MongoClient.connect(url);
+  const database = client.db();
+  const collection = database.collection("comments");
 
   if (req.method === "POST") {
     const { email, name, comment } = req.body;
@@ -25,14 +27,17 @@ const CommentHandler = (req, res) => {
       name: name,
       eventId: eventId,
     };
-    data.push(newComment);
-    fs.writeFileSync(filePath, JSON.stringify(data));
+
+    const result = await collection.insertOne(newComment);
     res.status(201).json({ message: "success", comment: newComment });
   }
 
   if (req.method === "GET") {
-    res.status(200).json({ comments: data });
+    const comments = collection.find().toArray();
+    res.status(200).json({ comments: comments });
   }
+
+  client.close();
 };
 
 export default CommentHandler;
