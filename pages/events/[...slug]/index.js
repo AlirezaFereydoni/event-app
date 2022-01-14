@@ -32,15 +32,18 @@ function FilteredEventsPage({ filteredEvents, hasError, date }) {
     );
   }
 
-  const date = new Date(date.year, date.month - 1);
+  const formattedDate = new Date(date.year, date.month - 1);
 
   return (
     <Fragment>
       <Head>
         <title>Filtering Events</title>
-        <meta name="description" content={`All Events for ${date.month}/${date.year}.`} />
+        <meta
+          name="description"
+          content={`All Events for ${formattedDate.month}/${formattedDate.year}.`}
+        />
       </Head>
-      <ResultsTitle date={date} />
+      <ResultsTitle date={formattedDate} />
       <EventList items={filteredEvents} />
     </Fragment>
   );
